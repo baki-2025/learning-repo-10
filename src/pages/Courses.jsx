@@ -1,9 +1,11 @@
 import React from 'react';
+import { NavLink } from 'react-router';
 
 const Courses = () => {
     return (
         <div>
-           Courses 
+        <li><NavLink to ="/all Courses">All Courses</NavLink></li>
+         <li><NavLink to ="/course Details">Course Details</NavLink></li>
         </div>
     );
 };

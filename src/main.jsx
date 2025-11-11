@@ -10,12 +10,14 @@ import DashBoard from './components/layouts/DashBoard.jsx';
 import Courses from './pages/Courses.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import Register from './pages/Register.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <NotFound></NotFound> ,
     children: [
       {
         index: true,
