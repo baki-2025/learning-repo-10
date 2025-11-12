@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { Component, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -10,39 +10,50 @@ import DashBoard from './components/layouts/DashBoard.jsx';
 import Courses from './pages/Courses.jsx';
 import AuthProvider from './contexts/AuthProvider.jsx';
 import Register from './pages/Register.jsx';
-import NotFound from './pages/NotFound.jsx';
+import CourseCard from './components/CourseCard.jsx';
+import PrivateRoute from './routes/PrivateRoute.jsx';
+import NotFound from './pages/NotFound.jsx'; // ✅ Make sure this file exists
+
 
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    Component: RootLayout,
-    errorElement: <NotFound></NotFound> ,
+    {
+    path: '/',
+    element: <RootLayout />, // ✅ must use `element`
+    errorElement: <NotFound />, // ✅ must use valid JSX
     children: [
       {
         index: true,
-        Component: Home
+        element: <Home />,
       },
-       {
-      path: 'courses',
-      Component: Courses,
-     },
-     {
-      path:'dashboard',
-      Component: DashBoard
-     },
-     {
-      path: 'register',
-      Component: Register
-     }
-    ]
+      {
+        path: 'courses',
+        element: <Courses />,
+      },
+      {
+        path: 'dashboard',
+        element: <DashBoard />,
+      },
+      {
+        path: 'register',
+        element: <Register />,
+      },
+      {
+        path: 'course-card', // ✅ no spaces allowed
+        element: (
+          <PrivateRoute>
+            <CourseCard />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <AuthProvider>
-   <RouterProvider router={router} />,
-   </AuthProvider>
-  </StrictMode>,
-)
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </StrictMode>
+);
