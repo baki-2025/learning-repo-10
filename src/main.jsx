@@ -13,6 +13,7 @@ import Register from './pages/Register.jsx';
 import CourseCard from './components/CourseCard.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import NotFound from './pages/NotFound.jsx'; // ✅ Make sure this file exists
+import AllCourses from './pages/AllCourses.jsx';
 
 
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
+        path:'all-course',
+        element: <AllCourses />
+      },
+      {
         path: 'course-card', // ✅ no spaces allowed
         element: (
           <PrivateRoute>
@@ -46,6 +51,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      
     ],
   },
 ]);

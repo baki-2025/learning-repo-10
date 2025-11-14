@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="flex items-center gap-2">
           <img
             src="/logo.png"  // replace with your logo path
-            alt="Logo"
+            alt=""
             className="w-10 h-10 rounded-full"
           />
           <h2 className="text-xl font-semibold text-white">Learning Hub</h2>
