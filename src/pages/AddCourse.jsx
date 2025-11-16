@@ -89,7 +89,7 @@ const AddCourse = () => {
           required
         ></textarea>
 
-        <button className="btn btn-primary w-full">Add Course</button>
+        <button className="btn btn-primary w-rounded">Add Course</button>
       </form>
     </div>
   );

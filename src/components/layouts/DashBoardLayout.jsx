@@ -10,7 +10,7 @@ const DashboardLayout = () => {
     <div className="flex min-h-screen">
 
       {/* Sidebar */}
-      <div className="w-64 bg-base-200 p-5">
+      <div className="w-64 bg-green-300 p-5">
         <h2 className="text-xl font-bold mb-4">Dashboard</h2>
         <ul className="menu">
 
