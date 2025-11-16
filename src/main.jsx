@@ -18,51 +18,11 @@ import MyEnrolledCourses from './pages/MyEnrolledCourses';
 import AddCourse from './pages/AddCourse.jsx';
 import MyAddedCourses from './pages/MyAddedCourses.jsx';
 
-
-
-// const router = createBrowserRouter([
-//     {
-//     path: '/',
-//     element: <RootLayout />, // ✅ must use `element`
-//     errorElement: <NotFound />, // ✅ must use valid JSX
-//     children: [
-//       {
-//         index: true,
-//         element: <Home />,
-//       },
-//       {
-//         path: 'courses',
-//         element: <Courses />,
-//       },
-//       {
-//         path: 'dashboard',
-//         element: <DashBoard />,
-//       },
-//       {
-//         path: 'register',
-//         element: <Register />,
-//       },
-//       {
-//         path:'all-course',
-//         element: <AllCourses />
-//       },
-//       {
-//         path: 'course-card', // ✅ no spaces allowed
-//         element: (
-//           <PrivateRoute>
-//             <CourseCard />
-//           </PrivateRoute>
-//         ),
-//       },
-      
-//     ],
-//   },
-// ]);
-
- const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <NotFound></NotFound> ,
     children: [
       { index: "true", element: <Home /> },
       { path: "/courses", element: <Courses /> },

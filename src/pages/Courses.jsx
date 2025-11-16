@@ -1,21 +1,5 @@
-// import React from 'react';
-// import { NavLink } from 'react-router';
-
-// const Courses = () => {
-//     return (
-//         <div>
-//         <li><NavLink to ="/all Courses">AllCourses</NavLink></li>
-//          <li><NavLink to ="/course Details">Course Details</NavLink></li>
-//         </div>
-//     );
-// };
-
-// export default Courses;
-
-
-
-import React from 'react';
-import { NavLink } from 'react-router';
+import React from "react";
+import { NavLink } from "react-router"; // Use react-router-dom
 
 const Courses = () => {
   return (
@@ -24,7 +8,7 @@ const Courses = () => {
         <NavLink
           to="/all-courses"
           className={({ isActive }) =>
-            isActive ? "text-indigo-600 font-bold" : "text-gray-700"
+            isActive ? "text-indigo-600 font-bold" : "text-gray-700 dark:text-gray-300"
           }
         >
           All Courses
@@ -34,7 +18,7 @@ const Courses = () => {
         <NavLink
           to="/course-details"
           className={({ isActive }) =>
-            isActive ? "text-indigo-600 font-bold" : "text-gray-700"
+            isActive ? "text-indigo-600 font-bold" : "text-gray-700 dark:text-gray-300"
           }
         >
           Course Details
