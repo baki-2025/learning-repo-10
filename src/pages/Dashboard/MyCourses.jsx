@@ -136,7 +136,7 @@ const MyCourses = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">My Added Courses</h2>
+      <h2 className="text-2xl text-center font-bold mb-6">My Added Courses</h2>
 
       {courses.length === 0 ? (
         <p className="text-gray-500">You haven’t added any courses yet.</p>

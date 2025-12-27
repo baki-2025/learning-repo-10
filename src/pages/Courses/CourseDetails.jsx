@@ -15,7 +15,7 @@ const CourseDetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-10">
-      <img src={course.image} className="rounded w-full" />
+      <img src="" className="rounded w-full" />
       <h2 className="text-3xl font-bold mt-4">{course.title}</h2>
       <p className="mt-2">{course.description}</p>
 
