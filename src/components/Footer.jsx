@@ -1,5 +1,7 @@
 import React from "react";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { GiBurningBook } from "react-icons/gi";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
   return (
@@ -8,11 +10,7 @@ const Footer = () => {
         
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <img
-            src="/logo.png"  // replace with your logo path
-            alt=""
-            className="w-10 h-10 rounded-full"
-          />
+         <GiBurningBook />
           <h2 className="text-xl font-semibold text-white">Learning Hub</h2>
         </div>
 
@@ -21,8 +19,8 @@ const Footer = () => {
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
             <FaFacebook />
           </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400">
-            <FaTwitter />
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400">
+            <BsTwitterX />
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
             <FaInstagram />

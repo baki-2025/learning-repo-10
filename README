@@ -1,0 +1,11 @@
+# LearningHub – Online Learning Platform
+
+🔗 Live Site: 
+
+## Features
+- Firebase Authentication (Email & Google)
+- Instructor-based Course Management (CRUD)
+- Secure Dashboard with Private Routes
+- Course Enrollment System
+- Responsive UI with Tailwind CSS
+- Smooth animations using Framer Motion

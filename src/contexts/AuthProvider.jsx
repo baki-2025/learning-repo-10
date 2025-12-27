@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase/firebase.init';
 import { AuthContext } from './AuthContext';
 
-
 const googleProvider = new GoogleAuthProvider 
 
 const AuthProvider = ({children}) => {

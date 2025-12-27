@@ -1,30 +1,87 @@
 import { NavLink, Outlet } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { GiBurningBook } from "react-icons/gi";
 
 
 const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
+  const { users } = useContext(AuthContext);
 
   return (
     <div className="flex min-h-screen">
 
-      {/* Sidebar */}
-      <div className="w-64 bg-green-300 p-5">
-        <h2 className="text-xl font-bold mb-4">Dashboard</h2>
-        <ul className="menu">
+      <div className="drawer lg:drawer-open">
+  <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+  <div className="drawer-content">
+    {/* Navbar */}
+    <nav className="navbar w-full bg-base-300">
+      <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
+        {/* Sidebar toggle icon */}
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg> 
+       
+      </label>
+     
+      <div className="px-4">LearningHub</div>
+    </nav>
+    {/* Page content here */}
+   <Outlet></Outlet>
+  </div>
 
-          <li><NavLink to="/dashboard/my-enrolled">My Enrolled Courses</NavLink></li>
-          <li><NavLink to="/dashboard/add-course">Add Course</NavLink></li>
-          <li><NavLink to="/dashboard/my-added">My Added Courses</NavLink></li>
+  <div className="drawer-side is-drawer-close:overflow-visible">
+    <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+    <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+      {/* Sidebar content here */}
+      <ul className="menu w-full grow">
+        {/* List item */}
+        <li>
+          <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+            {/* Home icon */}
+           
+            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> */}
+            <NavLink to="/"> <span className="is-drawer-close:hidden "><GiBurningBook />LearningHub</span></NavLink>
+          </button>
+        </li>
 
-        </ul>
+        {/* our dashboard links */}
+        
+         <li>
+            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="AddCourse" to="/dashboard/add-course">
+                                
+            <span className="is-drawer-close:hidden">Add Course</span>
+                            </NavLink>
+                        </li>
+                         <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="MyCourses" to="/dashboard/my-courses">
+                                
+                                <span className="is-drawer-close:hidden">My Courses</span>
+                            </NavLink>
+                        </li>
+         <li>
+          <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="EnrolledCourses" to="/dashboard/enrolled">
+                                
+          <span className="is-drawer-close:hidden">Enrolled Courses</span>
+            </NavLink>
+            </li>
+         <li>
+          <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="UpdateCourse" to="/dashboard/update-course">
+                                
+          <span className="is-drawer-close:hidden">Update Course</span>
+            </NavLink>
+            </li>
+        <li>
+          <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+            {/* Settings icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
+            <span className="is-drawer-close:hidden">Settings</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-5">
-        <Outlet />
-      </div>
+    
 
     </div>
   );
