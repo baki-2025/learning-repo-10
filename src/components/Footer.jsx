@@ -1,7 +1,7 @@
 import React from "react";
-import { GiBurningBook } from "react-icons/gi";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { SiGooglescholar } from "react-icons/si";
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
         
         {/* Logo */}
         <div className="flex items-center gap-2">
-         <GiBurningBook />
+         <SiGooglescholar />
           <h2 className="text-xl font-semibold text-white">Learning Hub</h2>
         </div>
 

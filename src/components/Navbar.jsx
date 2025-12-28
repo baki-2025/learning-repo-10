@@ -1,7 +1,7 @@
 import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
-import { GiBurningBook } from 'react-icons/gi';
+import { SiGooglescholar } from "react-icons/si";
 
 
 
@@ -17,15 +17,18 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/courses">Courses</NavLink></li>
-
+       
         {
             user && <>
+                <li><NavLink to="/course/:id">Course Details</NavLink></li>
                 <li><NavLink to="/dashboard">Dashboard</NavLink></li>
-                <li><NavLink to="/course-details">Course Details</NavLink></li>
+                
                
             </>
         }
-           <li><NavLink to="/about">About Us</NavLink></li>
+         <li><NavLink to="/about">About Us</NavLink></li>
+        <li><NavLink to="/register">Register</NavLink></li>
+   
     </>
 
     return (
@@ -42,19 +45,26 @@ const Navbar = () => {
                     </ul>
                 </div>
                
-                <a className="btn btn-ghost text-xl"> <GiBurningBook /><span>Learning Hub</span></a>
+                <a className="btn btn-ghost text-xl"> <SiGooglescholar /><span>Learning Hub</span></a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {links}
                 </ul>
             </div>
+           
             <div className="navbar-end">
+                
+                 
+                 
+
                 {
                     user ?
                         <a onClick={handleSignOut} className="btn btn-primary">Sign Out</a> :
-                        <Link to="/register">Login</Link>
+                        <Link to="/login">Login</Link>
                 }
+
+                
             </div>
         </div>
     );

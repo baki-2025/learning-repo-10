@@ -1,6 +1,7 @@
+import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure"; 
-import toast from "react-hot-toast";
+
 
 const AddCourse = () => {
   const { user } = useAuth();
@@ -13,8 +14,10 @@ const AddCourse = () => {
     const course = {
       title: form.title.value,
       image: form.image.value,
+      email: form.email.value,
       price: form.price.value,
       duration: form.duration.value,
+      level: form.level.value,
       category: form.category.value,
       description: form.description.value,
       instructor: {
@@ -36,8 +39,10 @@ const AddCourse = () => {
 
       <input name="title" placeholder="Title" className="input w-full mb-2" />
       <input name="image" placeholder="Image URL" className="input w-full mb-2" />
+      <input name="email" placeholder="Email" className="input w-full mb-2" />
       <input name="price" placeholder="Price" className="input w-full mb-2" />
       <input name="duration" placeholder="Duration" className="input w-full mb-2" />
+      <input name="level" placeholder="Level" className="input w-full mb-2" />
       <input name="category" placeholder="Category" className="input w-full mb-2" />
       <textarea
         name="description"
