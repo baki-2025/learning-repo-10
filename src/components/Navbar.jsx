@@ -1,7 +1,7 @@
 import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
-import { SiGooglescholar } from "react-icons/si";
+import { FcAlphabeticalSortingAz } from "react-icons/fc";
 
 
 
@@ -45,7 +45,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                
-                <a className="btn btn-ghost text-xl"> <SiGooglescholar /><span>Learning Hub</span></a>
+                <a className="btn btn-ghost text-xl"> <FcAlphabeticalSortingAz /><span>Learning Hub</span></a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

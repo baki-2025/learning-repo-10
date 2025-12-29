@@ -8,7 +8,6 @@ import Login from "../pages/Auth/Login.jsx";
 import Courses from "../pages/Courses/Courses.jsx";
 import MyCourses from "../pages/Dashboard/MyCourses.jsx";
 import AddCourse from "../pages/Dashboard/AddCourse.jsx";
-
 import EnrolledCourses from "../pages/Dashboard/EnrolledCourses.jsx";
 import UpdateCourse from "../pages/Dashboard/UpdateCourse.jsx";
 import CourseDetails from "../pages/Courses/CourseDetails.jsx";

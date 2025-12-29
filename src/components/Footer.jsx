@@ -1,7 +1,8 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
-import { SiGooglescholar } from "react-icons/si";
+import { FcAlphabeticalSortingAz } from "react-icons/fc";
+
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
         
         {/* Logo */}
         <div className="flex items-center gap-2">
-         <SiGooglescholar />
+         <FcAlphabeticalSortingAz />
           <h2 className="text-xl font-semibold text-white">Learning Hub</h2>
         </div>
 

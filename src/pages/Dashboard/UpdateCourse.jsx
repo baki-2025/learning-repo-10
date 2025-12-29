@@ -1,92 +1,3 @@
-// import { useParams, useNavigate } from "react-router";
-// import { useEffect, useState } from "react";
-// import axiosSecure from "../../hooks/useAxiosSecure";
-// import toast from "react-hot-toast";
-
-// const UpdateCourse = () => {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const [course, setCourse] = useState({});
-
-//   useEffect(() => {
-//     axiosSecure(`/courses/${id}`).then(res => setCourse(res.data));
-//   }, [id]);
-
-//   const handleUpdate = e => {
-//     e.preventDefault();
-//     axiosSecure.put(`/courses/${id}`, course).then(() => {
-//       toast.success("Course Updated");
-//       navigate("/dashboard/my-courses");
-//     });
-//   };
-
-//   return (
-//     <form onSubmit={handleUpdate} className="max-w-xl mx-auto">
-//       <input
-//         value={course.title || ""}
-//         onChange={e => setCourse({ ...course, title: e.target.value })}
-//         className="input w-full mb-2"
-//       />
-//       <button className="btn btn-primary w-full">Update</button>
-//     </form>
-//   );
-// };
-
-// export default UpdateCourse;
-
-
-
-// // import { useParams, useNavigate } from "react-router";
-// // import { useEffect, useState } from "react";
-// // import useAxiosSecure from "../../hooks/useAxiosSecure";
-// // import toast from "react-hot-toast";
-
-// // const UpdateCourse = () => {
-// //   const { id } = useParams();
-// //   const navigate = useNavigate();
-// //   const axiosSecure = useAxiosSecure();
-// //   const [course, setCourse] = useState({});
-
-// //   useEffect(() => {
-// //     if (!id) return;
-
-// //     axiosSecure.get(`/courses/${id}`).then(res => {
-// //       setCourse(res.data);
-// //     });
-// //   }, [id, axiosSecure]);
-
-// //   const handleUpdate = e => {
-// //     e.preventDefault();
-
-// //     axiosSecure.put(`/courses/${id}`, course).then(() => {
-// //       toast.success("Course Updated");
-// //       navigate("/dashboard/my-courses");
-// //     });
-// //   };
-
-// //   return (
-// //     <form onSubmit={handleUpdate} className="max-w-xl mx-auto">
-// //       <input
-// //         type="text"
-// //         value={course.title || ""}
-// //         onChange={e =>
-// //           setCourse({ ...course, title: e.target.value })
-// //         }
-// //         className="input w-full mb-2"
-// //         placeholder="Course Title"
-// //       />
-
-// //       <button className="btn btn-primary w-full">
-// //         Update
-// //       </button>
-// //     </form>
-// //   );
-// // };
-
-// // export default UpdateCourse;
-
-
-
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -103,25 +14,36 @@ const UpdateCourse = () => {
 
   // 🔹 Load existing course
   useEffect(() => {
-    if (!id) return;
+    const fetchCourse = async () => {
+      try {
+        const res = await axiosSecure.get(`/courses/${id}`);
+        setCourse(res.data);
+      } catch (error) {
+        toast.error("Failed to load course");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    axiosSecure.get(`/courses/${id}`).then(res => {
-      setCourse(res.data);
-      setLoading(false);
-    });
+    if (id) fetchCourse();
   }, [id, axiosSecure]);
 
   // 🔹 Update course
-  const handleUpdate = e => {
+  const handleUpdate = async e => {
     e.preventDefault();
 
-    axiosSecure.put(`/courses/${id}`, course).then(() => {
+    try {
+      const { _id, ...updatedCourse } = course;
+
+      await axiosSecure.put(`/courses/${id}`, updatedCourse);
       toast.success("Course updated successfully");
       navigate("/dashboard/my-courses");
-    });
+    } catch (error) {
+      toast.error("Failed to update course");
+    }
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading || !course) return <LoadingSpinner />;
 
   return (
     <div className="max-w-xl mx-auto">
@@ -133,7 +55,7 @@ const UpdateCourse = () => {
         <input
           className="input w-full"
           placeholder="Title"
-          value={course.title}
+          value={course.title || ""}
           onChange={e =>
             setCourse({ ...course, title: e.target.value })
           }
@@ -142,7 +64,7 @@ const UpdateCourse = () => {
         <input
           className="input w-full"
           placeholder="Image URL"
-          value={course.image}
+          value={course.image || ""}
           onChange={e =>
             setCourse({ ...course, image: e.target.value })
           }
@@ -151,7 +73,7 @@ const UpdateCourse = () => {
         <input
           className="input w-full"
           placeholder="Price"
-          value={course.price}
+          value={course.price || ""}
           onChange={e =>
             setCourse({ ...course, price: e.target.value })
           }
@@ -160,7 +82,7 @@ const UpdateCourse = () => {
         <input
           className="input w-full"
           placeholder="Duration"
-          value={course.duration}
+          value={course.duration || ""}
           onChange={e =>
             setCourse({ ...course, duration: e.target.value })
           }
@@ -169,7 +91,7 @@ const UpdateCourse = () => {
         <input
           className="input w-full"
           placeholder="Category"
-          value={course.category}
+          value={course.category || ""}
           onChange={e =>
             setCourse({ ...course, category: e.target.value })
           }
@@ -178,7 +100,7 @@ const UpdateCourse = () => {
         <textarea
           className="textarea w-full"
           placeholder="Description"
-          value={course.description}
+          value={course.description || ""}
           onChange={e =>
             setCourse({ ...course, description: e.target.value })
           }
@@ -193,4 +115,3 @@ const UpdateCourse = () => {
 };
 
 export default UpdateCourse;
-
