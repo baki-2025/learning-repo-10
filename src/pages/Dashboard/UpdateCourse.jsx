@@ -1,8 +1,7 @@
-import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import toast from "react-hot-toast";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import { toast } from "react-toastify";
 
 const UpdateCourse = () => {
   const { id } = useParams();
@@ -11,103 +10,142 @@ const UpdateCourse = () => {
 
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({
+    title: "",
+    image: "",
+    price: "",
+    duration: "",
+    category: "",
+    description: "",
+    isFeatured: false,
+  });
 
-  // 🔹 Load existing course
   useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const res = await axiosSecure.get(`/courses/${id}`);
-        setCourse(res.data);
-      } catch (error) {
-        toast.error("Failed to load course");
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!id) return;
 
-    if (id) fetchCourse();
+    axiosSecure
+      .get(`/courses/${id}`)
+      .then((res) => {
+        setCourse(res.data);
+        setFormData({
+          title: res.data.title,
+          image: res.data.image,
+          price: res.data.price,
+          duration: res.data.duration,
+          category: res.data.category,
+          description: res.data.description,
+          isFeatured: res.data.isFeatured || false,
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to load course data");
+        setLoading(false);
+      });
   }, [id, axiosSecure]);
 
-  // 🔹 Update course
-  const handleUpdate = async e => {
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const { _id, ...updatedCourse } = course;
-
-      await axiosSecure.put(`/courses/${id}`, updatedCourse);
+      await axiosSecure.put(`/courses/${id}`, formData);
       toast.success("Course updated successfully");
       navigate("/dashboard/my-courses");
-    } catch (error) {
+    } catch (err) {
+      console.error(err);
       toast.error("Failed to update course");
     }
   };
 
-  if (loading || !course) return <LoadingSpinner />;
+  if (loading) {
+    return (
+      <div className="flex justify-center py-20">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (!course) {
+    return <p className="text-center py-20 text-red-500">Course not found</p>;
+  }
 
   return (
-    <div className="max-w-xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-center">
-        Update Course
-      </h2>
-
-      <form onSubmit={handleUpdate} className="space-y-3">
+    <div className="max-w-4xl mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-6">Update Course</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
-          className="input w-full"
-          placeholder="Title"
-          value={course.title || ""}
-          onChange={e =>
-            setCourse({ ...course, title: e.target.value })
-          }
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          placeholder="Course Title"
+          className="input input-bordered w-full"
+          required
         />
-
         <input
-          className="input w-full"
+          type="text"
+          name="image"
+          value={formData.image}
+          onChange={handleChange}
           placeholder="Image URL"
-          value={course.image || ""}
-          onChange={e =>
-            setCourse({ ...course, image: e.target.value })
-          }
+          className="input input-bordered w-full"
+          required
         />
-
         <input
-          className="input w-full"
+          type="number"
+          name="price"
+          value={formData.price}
+          onChange={handleChange}
           placeholder="Price"
-          value={course.price || ""}
-          onChange={e =>
-            setCourse({ ...course, price: e.target.value })
-          }
+          className="input input-bordered w-full"
+          required
         />
-
         <input
-          className="input w-full"
+          type="text"
+          name="duration"
+          value={formData.duration}
+          onChange={handleChange}
           placeholder="Duration"
-          value={course.duration || ""}
-          onChange={e =>
-            setCourse({ ...course, duration: e.target.value })
-          }
+          className="input input-bordered w-full"
+          required
         />
-
         <input
-          className="input w-full"
+          type="text"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
           placeholder="Category"
-          value={course.category || ""}
-          onChange={e =>
-            setCourse({ ...course, category: e.target.value })
-          }
+          className="input input-bordered w-full"
+          required
         />
-
         <textarea
-          className="textarea w-full"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
           placeholder="Description"
-          value={course.description || ""}
-          onChange={e =>
-            setCourse({ ...course, description: e.target.value })
-          }
+          className="textarea textarea-bordered w-full"
+          required
         />
-
-        <button className="btn btn-primary w-full">
-          Save Changes
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="isFeatured"
+            checked={formData.isFeatured}
+            onChange={handleChange}
+            className="checkbox"
+          />
+          Featured
+        </label>
+        <button type="submit" className="btn btn-primary mt-4">
+          Update Course
         </button>
       </form>
     </div>

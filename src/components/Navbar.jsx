@@ -20,14 +20,13 @@ const Navbar = () => {
        
         {
             user && <>
-                <li><NavLink to="/course/:id">Course Details</NavLink></li>
-                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+             <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                 
                
             </>
         }
-         <li><NavLink to="/about">About Us</NavLink></li>
-        <li><NavLink to="/register">Register</NavLink></li>
+          <li><NavLink to="/about">About Us</NavLink></li>
+          <li><NavLink to="/register">Register</NavLink></li>
    
     </>
 

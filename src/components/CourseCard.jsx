@@ -10,8 +10,10 @@ const CourseCard = ({ course }) => {
       <p className="text-sm">Category: {category}</p>
       <p className="text-sm">Duration: {duration}</p>
       <p className="font-semibold mt-1">${price}</p>
+      
+
       <Link
-        to={`/courses/${_id}`}
+        to={`/courseDetails/${_id}`}
         className="btn btn-primary mt-auto"
       >
         View Details
