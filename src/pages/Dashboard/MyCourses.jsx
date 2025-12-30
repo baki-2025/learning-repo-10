@@ -61,12 +61,12 @@ const MyCourses = () => {
               <p className="text-sm">Price: ${course.price}</p>
 
               <div className="flex gap-2 mt-4">
-                <Link to={`/courses/${course._id}`} className="btn btn-sm">
-                  View
+                <Link to={`/courseDetails/${course._id}`} className="btn btn-sm">
+                  View Details
                 </Link>
 
                 <Link
-                  to={`/dashboard/update/${course._id}`}
+                  to={`/dashboard/updateCourse/${course._id}`}
                   className="btn btn-sm btn-warning"
                 >
                   Update

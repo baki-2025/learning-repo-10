@@ -78,8 +78,8 @@ const UpdateCourse = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6">Update Course</h2>
+    <div className="max-w-xl mx-auto p-6">
+      <h2 className="text-3xl text-center font-bold mb-6">Update Course</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -134,7 +134,7 @@ const UpdateCourse = () => {
           className="textarea textarea-bordered w-full"
           required
         />
-        <label className="flex items-center gap-2">
+        {/* <label className="flex items-center gap-2">
           <input
             type="checkbox"
             name="isFeatured"
@@ -143,8 +143,8 @@ const UpdateCourse = () => {
             className="checkbox"
           />
           Featured
-        </label>
-        <button type="submit" className="btn btn-primary mt-4">
+        </label> */}
+        <button type="submit" className="btn btn-primary w-full mt-4">
           Update Course
         </button>
       </form>

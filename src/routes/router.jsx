@@ -12,6 +12,7 @@ import EnrolledCourses from "../pages/Dashboard/EnrolledCourses.jsx";
 import UpdateCourse from "../pages/Dashboard/UpdateCourse.jsx";
 import CourseDetails from "../pages/Courses/CourseDetails.jsx";
 import Register from "../pages/Auth/Register.jsx";
+import AboutUs from "../components/AboutUs.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -44,9 +45,14 @@ export const router = createBrowserRouter([
       { path: "my-courses", element: <MyCourses /> },
       { path: "add-course", element: <AddCourse /> },
       { path: "enrolled", element: <EnrolledCourses /> },
-      { path: "update-course", element: <UpdateCourse /> },
+      { path: "updateCourse/:id", element: <UpdateCourse /> },
     ],
   },
+  {
+  path: "/about",
+  element: <AboutUs />
+},
+
 ]);
 
 export default router;

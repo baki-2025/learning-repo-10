@@ -1,103 +1,99 @@
-import { useParams } from "react-router";
-import { useEffect, useState } from "react";
-import useAuth from "../../hooks/useAuth";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { AuthContext } from "../../contexts/AuthContext";
 import { toast } from "react-toastify";
 
 const CourseDetails = () => {
-  const { id } = useParams(); // route থেকে id
-  const { user } = useAuth(); // লগিন ইউজার
+  const { id } = useParams();
+  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
 
-  const [course, setCourse] = useState(null);
+  const [course, setCourse] = useState({});
   const [loading, setLoading] = useState(true);
+  const [enrolling, setEnrolling] = useState(false);
 
   useEffect(() => {
-    if (!id) return;
-
     axiosSecure
       .get(`/courses/${id}`)
       .then((res) => {
         setCourse(res.data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
-        toast.error("Failed to load course details");
+      .catch(() => {
+        toast.error("Failed to load course");
         setLoading(false);
       });
   }, [id, axiosSecure]);
 
   const handleEnroll = async () => {
-    if (!user) return toast.error("Please login to enroll");
+    if (!user) {
+      toast.error("Please login to enroll");
+      navigate("/login");
+      return;
+    }
+
+    setEnrolling(true);
+
+    const enrollData = {
+      courseId: course._id,
+      title: course.title,
+      image: course.image,
+      price: course.price,
+      category: course.category,
+      duration: course.duration,
+      studentEmail: user.email,
+      enrolledAt: new Date(),
+    };
+
     try {
-      const enrollData = {
-        courseId: course._id,
-        title: course.title,
-        image: course.image,
-        price: course.price,
-        studentEmail: user.email,
-        enrolledAt: new Date(),
-      };
       await axiosSecure.post("/enroll", enrollData);
-      toast.success("Successfully enrolled in this course 🎉");
-    } catch (err) {
-      console.error(err);
+      toast.success("Successfully enrolled 🎉");
+      navigate("/dashboard/enrolled");
+    } catch (error) {
+      console.log(error)
       toast.error("Already enrolled or something went wrong");
+    } finally {
+      setEnrolling(false);
     }
   };
 
-  if (loading)
+  if (loading) {
     return (
       <div className="flex justify-center py-20">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
-
-  if (!course)
-    return (
-      <p className="text-center text-red-500 py-20">
-        Course not found
-      </p>
-    );
+  }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="grid md:grid-cols-2 gap-10">
-        {/* Course Image */}
-        <img
-          src={course.image || "https://via.placeholder.com/400"}
-          alt={course.title}
-          className="rounded-xl w-full h-[400px] object-cover"
-        />
+    <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-8">
+      <img
+        src={course.image}
+        alt={course.title}
+        className="w-full h-80 object-cover rounded-lg"
+      />
 
-        {/* Course Details */}
-        <div>
-          <h2 className="text-3xl font-bold mb-4">{course.title}</h2>
-          <p className="text-gray-700 mb-4">{course.description}</p>
+      <div>
+        <h2 className="text-3xl font-bold mb-3">{course.title}</h2>
+        <p className="text-gray-600 mb-2">
+          <strong>Category:</strong> {course.category}
+        </p>
+        <p className="text-gray-600 mb-2">
+          <strong>Duration:</strong> {course.duration}
+        </p>
+        <p className="text-xl font-semibold mb-4">
+          Price: ${course.price}
+        </p>
 
-          <div className="space-y-2">
-            <p>
-              <strong>Category:</strong> {course.category}
-            </p>
-            <p>
-              <strong>Duration:</strong> {course.duration}
-            </p>
-            <p>
-              <strong>Price:</strong> ${course.price}
-            </p>
-            <p>
-              <strong>Instructor:</strong> {course.instructorName}
-            </p>
-          </div>
-
-          <button
-            onClick={handleEnroll}
-            className="btn btn-success mt-6"
-          >
-            Enroll Now
-          </button>
-        </div>
+        <button
+          onClick={handleEnroll}
+          disabled={enrolling}
+          className="btn btn-primary w-full"
+        >
+          {enrolling ? "Enrolling..." : "Enroll Now"}
+        </button>
       </div>
     </div>
   );

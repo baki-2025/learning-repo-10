@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { FcAlphabeticalSortingAz } from "react-icons/fc";
 import { MdAddCard,MdBookmarkAdded } from "react-icons/md";
 import { SiConcourse } from "react-icons/si";
-import { GrUpdate } from "react-icons/gr";
+
 
 const DashboardLayout = () => {
   const { users } = useContext(AuthContext);
@@ -67,12 +67,7 @@ const DashboardLayout = () => {
           <span className="is-drawer-close:hidden">Enrolled Courses</span>
             </NavLink>
             </li>
-         <li>
-          <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="UpdateCourse" to="/dashboard/update-course">
-            <GrUpdate />                    
-          <span className="is-drawer-close:hidden">Update Course</span>
-            </NavLink>
-            </li>
+       
         <li>
           <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
             {/* Settings icon */}
