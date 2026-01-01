@@ -41,7 +41,7 @@ const Register = () => {
         role: isInstructor ? "instructor" : "student",
       };
 
-      await fetch("http://localhost:3000/users", {
+      await fetch("https://learning-server-10.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -61,7 +61,7 @@ const Register = () => {
           skills: [],
         };
 
-        await fetch("http://localhost:3000/instructors", {
+        await fetch("https://learning-server-10.vercel.app/instructors", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -92,7 +92,7 @@ const Register = () => {
         role: "student",
       };
 
-      await fetch("http://localhost:3000/users", {
+      await fetch("https://learning-server-10.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",

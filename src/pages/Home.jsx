@@ -11,13 +11,13 @@ const Home = () => {
     AOS.init({ duration: 1000, once: true });
 
     // 🟢 Fetch popular courses (first 6)
-    fetch('http://localhost:3000/courses')
+    fetch('https://learning-server-10.vercel.app/courses')
       .then(res => res.json())
       .then(data => setCourses(data.slice(0, 6)))
       .catch(err => console.error(err));
 
     // 🟢 Fetch top 3 instructors only
-    fetch('http://localhost:3000/instructors')
+    fetch('https://learning-server-10.vercel.app/instructors')
       .then(res => res.json())
       .then(data => setInstructors(data.slice(0, 3)))  // ✅ Only 3 instructors
       .catch(err => console.error(err));

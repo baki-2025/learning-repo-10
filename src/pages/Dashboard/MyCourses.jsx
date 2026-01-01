@@ -21,7 +21,7 @@ const MyCourses = () => {
         });
     }
   }, [user, axiosSecure]);
-
+  // console.log('token',user.accessToken)
   const handleDelete = id => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this course?"

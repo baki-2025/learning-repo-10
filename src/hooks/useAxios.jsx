@@ -2,12 +2,12 @@ import axios from 'axios';
 
 
 const axiosInstance = axios.create({
-   //     bashURL: `https://learning-server-10.vercel.app`
-     baseURL: 'http://localhost:3000'
+  
+  baseURL: 'https://learning-server-10.vercel.app'
 })
 
 const useAxios = () => {
-    return axiosInstance;
+  return axiosInstance;
 };
 
 export default useAxios;

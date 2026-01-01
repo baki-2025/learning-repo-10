@@ -9,10 +9,10 @@ const useAxiosSecure = () => {
     const navigate = useNavigate();
 
     // Create axios instance only once
-   const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
-  withCredentials: true
-});
+    const axiosSecure = axios.create({
+        baseURL: `https://learning-server-10.vercel.app`,
+        withCredentials: true
+    });
 
 
     useEffect(() => {
@@ -38,8 +38,7 @@ const useAxiosSecure = () => {
 
                 // Check login loop
                 if ((statusCode === 401 || statusCode === 403) &&
-                    window.location.pathname !== '/login') 
-                {
+                    window.location.pathname !== '/login') {
                     await signOut();
                     navigate('/login');
                 }
