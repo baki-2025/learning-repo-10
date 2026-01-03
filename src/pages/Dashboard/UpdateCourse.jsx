@@ -55,16 +55,22 @@ const UpdateCourse = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axiosSecure.put(`/courses/${id}`, formData);
+  e.preventDefault();
+
+  try {
+    const res = await axiosSecure.put(`/courses/${id}`, formData);
+
+    if (res.data.modifiedCount > 0) {
       toast.success("Course updated successfully");
       navigate("/dashboard/my-courses");
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to update course");
+    } else {
+      toast.error("No changes detected");
     }
-  };
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to update course");
+  }
+};
 
   if (loading) {
     return (
