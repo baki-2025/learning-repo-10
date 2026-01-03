@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../contexts/AuthContext";
-import { toast } from "react-toastify";
+
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -83,9 +83,11 @@ const CourseDetails = () => {
         <p className="text-gray-600 mb-2">
           <strong>Duration:</strong> {course.duration}
         </p>
+        
         <p className="text-xl font-semibold mb-4">
           Price: ${course.price}
         </p>
+        
 
         <button
           onClick={handleEnroll}

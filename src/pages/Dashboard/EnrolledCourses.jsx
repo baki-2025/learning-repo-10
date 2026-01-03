@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 
 const EnrolledCourses = () => {
   const { user } = useContext(AuthContext);
@@ -78,3 +79,6 @@ const EnrolledCourses = () => {
 };
 
 export default EnrolledCourses;
+
+
+

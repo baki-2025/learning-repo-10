@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 
 const UpdateCourse = () => {
   const { id } = useParams();
