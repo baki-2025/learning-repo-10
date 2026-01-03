@@ -93,7 +93,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      
       {/* 🟢 Top 3 Instructors Section */}
       <section className="py-16 px-6 text-center" data-aos="fade-up">
         <h2 className="text-3xl font-bold mb-8">Top Instructors</h2>
@@ -118,6 +118,8 @@ const Home = () => {
         </div>
       </section>
     </div>
+   
+    
   );
 };
 
