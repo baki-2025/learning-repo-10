@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { signInWithGoogle, registerWithEmail } = useContext(AuthContext);
@@ -20,6 +21,8 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    const loadingToast = toast.loading("Creating account...");
+
     try {
       // 1️⃣ Create user
       const result = await registerWithEmail(email, password);
@@ -31,9 +34,7 @@ const Register = () => {
         photoURL: photo,
       });
 
-      // =========================
       // 3️⃣ Save to USERS collection
-      // =========================
       const newUser = {
         name,
         email,
@@ -43,15 +44,11 @@ const Register = () => {
 
       await fetch("https://learning-server-10.vercel.app/users", {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(newUser),
       });
 
-      // =========================
       // 4️⃣ If Instructor → save to instructors collection
-      // =========================
       if (isInstructor) {
         const instructorData = {
           name,
@@ -63,16 +60,16 @@ const Register = () => {
 
         await fetch("https://learning-server-10.vercel.app/instructors", {
           method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
+          headers: { "content-type": "application/json" },
           body: JSON.stringify(instructorData),
         });
       }
 
+      toast.success("Registration successful!", { id: loadingToast });
       form.reset();
     } catch (err) {
       console.error(err);
+      toast.error("Registration failed", { id: loadingToast });
       setError(err.message);
     }
   };
@@ -81,6 +78,8 @@ const Register = () => {
   // Google Sign In
   // =========================
   const handleGoogleSignIn = async () => {
+    const loadingToast = toast.loading("Signing in with Google...");
+
     try {
       const result = await signInWithGoogle();
       const user = result.user;
@@ -94,13 +93,14 @@ const Register = () => {
 
       await fetch("https://learning-server-10.vercel.app/users", {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(newUser),
       });
+
+      toast.success("Google login successful!", { id: loadingToast });
     } catch (error) {
       console.error(error);
+      toast.error("Google login failed", { id: loadingToast });
       setError(error.message);
     }
   };
@@ -122,12 +122,7 @@ const Register = () => {
             <input name="email" type="email" className="input" required />
 
             <label className="label">Password</label>
-            <input
-              name="password"
-              type="password"
-              className="input"
-              required
-            />
+            <input name="password" type="password" className="input" required />
 
             {/* Instructor checkbox */}
             <label className="flex items-center gap-2 mt-2">
@@ -140,7 +135,7 @@ const Register = () => {
               Register as Instructor
             </label>
 
-            {error && <p className="text-red-500 mt-2">{error}</p>}
+            {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
 
             <button className="btn btn-neutral mt-4 w-full">
               Register

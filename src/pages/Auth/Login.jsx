@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { loginWithEmail, signInWithGoogle } = useContext(AuthContext);
@@ -12,13 +13,28 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
+    const loadingToast = toast.loading("Logging in...");
+
     loginWithEmail(email, password)
       .then((result) => {
+        toast.success("Login successful!", { id: loadingToast });
         console.log("Logged in:", result.user);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error("Invalid email or password", { id: loadingToast });
         setError(err.message);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    const loadingToast = toast.loading("Signing in with Google...");
+
+    signInWithGoogle()
+      .then(() => {
+        toast.success("Logged in with Google!", { id: loadingToast });
+      })
+      .catch(() => {
+        toast.error("Google login failed", { id: loadingToast });
       });
   };
 
@@ -35,7 +51,7 @@ const Login = () => {
             <label className="label">Password</label>
             <input name="password" type="password" className="input" required />
 
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <button className="btn btn-neutral mt-4 w-full">
               Login
@@ -44,7 +60,7 @@ const Login = () => {
         </form>
 
         <button
-          onClick={signInWithGoogle}
+          onClick={handleGoogleLogin}
           className="btn bg-white text-black border mt-4 w-full"
         >
           Login with Google
